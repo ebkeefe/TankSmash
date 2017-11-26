@@ -1,10 +1,13 @@
 //Carlos Luevanos and Eric Keefe
 //Lab 4: camera1 Navigation
 
-var tankRad = 100;
-var arenaLength = 210;
+var tankRad = 20;
+var arenaLength = 300;
 //the center of the tank should be at the eye of the cameras
 
+//the healths of the tanks
+var health1 = 1000;
+var health2 = 1000;
 
 var canvas;       // HTML 5 canvas
 var gl;           // webgl graphics context
@@ -144,7 +147,7 @@ function render(){
 
 function renderScene(viewMat)
 {
-   
+       
     
     
     checkCollision();
@@ -190,71 +193,71 @@ function renderScene(viewMat)
     gl.uniform4fv(uLight_position, newLight);
     
     gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
-    Shapes.axis.draw();
+    //Shapes.axis.draw();
    
    
     
     //drawing another square that should be fixed in place
+    // stack.push();
+    // stack.multiply(translate(10, 0, 10));
+    // stripes.activate();
+    // gl.uniform4fv(uColor, vec4(1.0, 0.0, 0.0, 1.0)); 
+    // gl.uniform1i(uMode, 1);
+    // gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
+    // Shapes.drawPrimitive(Shapes.cube);
+    // stack.pop();
+
+    //drawing the floor
     stack.push();
-    stack.multiply(translate(10, 0, 10));
-    stripes.activate();
-    gl.uniform4fv(uColor, vec4(1.0, 0.0, 0.0, 1.0)); 
+    stack.multiply(scalem(arenaLength, 1, arenaLength));
+    stack.multiply(translate(0, -10, 0));
+    pokadot.activate();
+    gl.uniform4fv(uColor, vec4(0.5, 0.1, 0.5, 1.0)); 
     gl.uniform1i(uMode, 1);
     gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
     Shapes.drawPrimitive(Shapes.cube);
     stack.pop();
 
-    //drawing the floor
+    //drawing the arena sides
     stack.push();
-    stack.multiply(scalem(200, 1, 200));
-    stack.multiply(translate(0, -10, 0));
+    stack.multiply(scalem(1, 100, arenaLength*2));
+    stack.multiply(translate(arenaLength, 0, 0));
     pokadot.activate();
-    gl.uniform4fv(uColor, vec4(1.0, 0.0, 0.0, 1.0)); 
-    gl.uniform1i(uMode, 2);
+    gl.uniform4fv(uColor, vec4(0.5, 0.5, 0.5, 1.0)); 
+    gl.uniform1i(uMode, 1);
     gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
     Shapes.drawPrimitive(Shapes.cube);
     stack.pop();
 
     //drawing the arena sides
     stack.push();
-    stack.multiply(scalem(1, 200, -arenaLength));
-    stack.multiply(translate(150, 0, 0));
+    stack.multiply(scalem(1, 100, arenaLength*2));
+    stack.multiply(translate(-arenaLength, 0, 0));
     pokadot.activate();
-    gl.uniform4fv(uColor, vec4(1.0, 0.0, 0.0, 1.0)); 
-    gl.uniform1i(uMode, 2);
-    gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
-    Shapes.drawPrimitive(Shapes.cube);
-    stack.pop();
-
-    //drawing the arena sides
-    stack.push();
-    stack.multiply(scalem(1, 200, arenaLength));
-    stack.multiply(translate(-150, 0, 0));
-    pokadot.activate();
-    gl.uniform4fv(uColor, vec4(1.0, 0.0, 0.0, 1.0)); 
-    gl.uniform1i(uMode, 2);
+    gl.uniform4fv(uColor, vec4(0.5, 0.5, 0.5, 1.0)); 
+    gl.uniform1i(uMode, 1);
     gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
     Shapes.drawPrimitive(Shapes.cube);
     stack.pop();
 
     //drawing the front and back of the arena
     stack.push();
-    stack.multiply(scalem(arenaLength, 200, 1));
-    stack.multiply(translate(0, 0, -200));
+    stack.multiply(scalem(arenaLength*2, 100, 1));
+    stack.multiply(translate(0, 0, -arenaLength));
     pokadot.activate();
-    gl.uniform4fv(uColor, vec4(1.0, 0.0, 0.0, 1.0)); 
-    gl.uniform1i(uMode, 2);
+    gl.uniform4fv(uColor, vec4(0.5, 0.5, 0.5, 1.0)); 
+    gl.uniform1i(uMode, 1);
     gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
     Shapes.drawPrimitive(Shapes.cube);
     stack.pop();
 
     //drawing the front and back of the arena
     stack.push();
-    stack.multiply(scalem(-arenaLength, 200, 1));
-    stack.multiply(translate(0, 0, 200));
+    stack.multiply(scalem(arenaLength*2, 100, 1));
+    stack.multiply(translate(0, 0, arenaLength));
     pokadot.activate();
-    gl.uniform4fv(uColor, vec4(1.0, 0.0, 0.0, 1.0)); 
-    gl.uniform1i(uMode, 2);
+    gl.uniform4fv(uColor, vec4(0.5, 0.5, 0.5, 1.0)); 
+    gl.uniform1i(uMode, 1);
     gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
     Shapes.drawPrimitive(Shapes.cube);
     stack.pop();
@@ -263,8 +266,8 @@ function renderScene(viewMat)
     stack.push();
     stack.multiply(translate(lighting.light_position[0], lighting.light_position[1], lighting.light_position[2]));
     stripes.activate();
-    gl.uniform4fv(uColor, vec4(0.0, 1.0, 0.0, 1.0)); 
-    gl.uniform1i(uMode, 2);
+    gl.uniform4fv(uColor, vec4(1.0, 0.3, 0.0, 1.0)); 
+    gl.uniform1i(uMode, 4);
     gl.uniformMatrix4fv(uModel_view, false, flatten(stack.top()));
     Shapes.drawPrimitive(Shapes.cube);
 
@@ -281,20 +284,43 @@ function drawShape(shape,wireBool){
 
 function checkCollision(){
     //check for tank1 leaving the boundary of the game
-    if (camera1.eye[0] + tankRad >= arenaLength || camera1.eye[0] - tankRad <= -arenaLength || camera1.eye[2] + tankRad >= arenaLength ||
+     if (camera1.eye[0] + tankRad >= arenaLength || camera1.eye[0] - tankRad <= -arenaLength || camera1.eye[2] + tankRad >= arenaLength ||
         camera1.eye[2] - tankRad <= -arenaLength){
         camera1.resetAll();
+        health1 -= 200;
+        document.getElementById("Tank1Health").innerHTML = "Tank 1 Health: "  + health1;
     }
     
+    //check for tank2 leaving the boundary of the game
     if (camera2.eye[0] + tankRad >= arenaLength || camera2.eye[0] - tankRad <= -arenaLength || camera2.eye[2] + tankRad >= arenaLength ||
         camera2.eye[2] - tankRad <= -arenaLength){
         camera2.resetAll();
+        health2 -= 200;
+        document.getElementById("Tank2Health").innerHTML = "Tank 2 Health: "  + health2;
     }
 
     
-
-    //check for tank2 leaving the boundary of the game
-
     //check tank1 colliding with tank 2
+    //calculate distance
+    var xDistance = camera1.eye[0] - camera2.eye[0];
+    var zDistance = camera1.eye[2] - camera2.eye[2]; 
+    var distance = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(zDistance, 2)); 
+    if (distance < tankRad){
+        var hit1Speed = camera1.fScale;
+        var hit2Speed = camera2.fScale;
+        console.log(hit1Speed);
+        camera1.resetAll();
+        camera2.resetAll();
+        health1 -= Math.floor(20 * hit2Speed);
+        health2 -= Math.floor(20 * hit1Speed);
+        document.getElementById("Tank1Health").innerHTML = "Tank 1 Health: "  + health1;
+        document.getElementById("Tank2Health").innerHTML = "Tank 2 Health: "  + health2;
+
+        
+    }
+ 
+    
+
+    
 
 }

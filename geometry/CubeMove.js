@@ -25,7 +25,7 @@ function CubeMove(theta) {
     this.normals = [this.numVertices];
     this.vTexCoords = [this.numVertices];
     
-    console.log("cube drawn");
+    //console.log("cube drawn");
 
     // Local variables: unique vertices and colors.
     ////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ function CubeMove(theta) {
 
 CubeMove.prototype.texMove = function(tex){
         var xTex = tex[0]-((this.theta/2)%(20))*.06;
-        console.log(xTex);
+        //console.log(xTex);
         //if (xTex<0) {
         //    xTex+=1.0;
         //} //else if (xTex>1){

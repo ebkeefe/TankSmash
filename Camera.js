@@ -66,8 +66,8 @@ Camera.prototype.calcUVN = function () {
     
     this.viewRotation = R1;
     
-    console.log("View Rotation Matrix: ");
-    printm(this.viewRotation);
+    //console.log("View Rotation Matrix: ");
+    //printm(this.viewRotation);
     
     this.viewRotation.matrix = true;
 };
@@ -85,8 +85,8 @@ Camera.prototype.calcViewMat = function () {
    
    var mv = mult(this.viewRotation, eyeTranslate);
 //   var mv = mult (eyeTranslate, this.viewRotation); 
-   console.log("View Matrix: ");
-   printm(mv);
+   //console.log("View Matrix: ");
+   //printm(mv);
    return mv;
 };
 
@@ -126,7 +126,7 @@ Camera.prototype.turnRight = function(scale){
 
 Camera.prototype.moveForward = function(){
     if (this.fScale < maxScale){
-        this.fScale +=0.1;
+        this.fScale +=0.05;
     }
 	this.eye = add(this.eye,scale(alpha*this.fScale, this.viewRotation[2]));
     this.theta+=2;
@@ -138,7 +138,7 @@ Camera.prototype.moveForward = function(){
 
 Camera.prototype.moveBackward = function(){
 	if (this.bScale < maxScale){
-        this.bScale +=0.1;
+        this.bScale +=0.05;
     }
     this.eye = add(this.eye,scale(-alpha*this.bScale,this.viewRotation[2]));
     this.theta-=2;

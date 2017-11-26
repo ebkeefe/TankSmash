@@ -141,7 +141,7 @@ function setKeyEventHandler() {
     
         
         
-        lighting.keyAction(c);
+        //lighting.keyAction(c);
         //document.getElementById("keypress").innerHTML = "<b>Key pressed:</b> " + c + "<br>";
         //render();
     };

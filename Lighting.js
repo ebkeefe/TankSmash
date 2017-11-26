@@ -16,7 +16,7 @@ function Lighting() {
     // Important:  These light coordinates are in World Coordinates. 
     //             Before sending them to the vertex shader, we need 
     //             to convert to eye coordinates. This is done in the render method. 
-    this.light_position = vec4(6, 8, 0, 1);
+    this.light_position = vec4(0, 30, 0, 1);
 
     // Light colors all set to white at the moment
     this.ambientColor = vec4(1.0,1.0,1.0,1.0);
@@ -54,24 +54,24 @@ Lighting.prototype.setUp = function () {
     gl.uniform1f(uShininess, this.shininess);
 };
 
-Lighting.prototype.keyAction = function (key) {
-    var alpha = 2.0;  // used to control the amount of a turn during the flythrough 
-    switch (key) {     // different keys should be used because these do thing sin browser
-        case 'O':  // turn right - this is implemented
-            console.log("move light right");
-            this.light_position = mult(rotateY(alpha), this.light_position);
-            break;
-        case 'P':   // turn left
-            console.log("movie light left");
-            this.light_position = mult(rotateY(-alpha), this.light_position);
-            break;
-        case 'K':  // turn right - this is implemented
-            console.log("move light right");
-            this.light_position = mult(rotateX(alpha), this.light_position);
-            break;
-        case 'L':   // turn left
-            console.log("movie light left");
-            this.light_position = mult(rotateX(-alpha), this.light_position);
-            break;
-    }
-};
+// Lighting.prototype.keyAction = function (key) {
+//     var alpha = 2.0;  // used to control the amount of a turn during the flythrough 
+//     switch (key) {     // different keys should be used because these do thing sin browser
+//         case 'O':  // turn right - this is implemented
+//             console.log("move light right");
+//             this.light_position = mult(rotateY(alpha), this.light_position);
+//             break;
+//         case 'P':   // turn left
+//             console.log("movie light left");
+//             this.light_position = mult(rotateY(-alpha), this.light_position);
+//             break;
+//         case 'K':  // turn right - this is implemented
+//             console.log("move light right");
+//             this.light_position = mult(rotateX(alpha), this.light_position);
+//             break;
+//         case 'L':   // turn left
+//             console.log("movie light left");
+//             this.light_position = mult(rotateX(-alpha), this.light_position);
+//             break;
+//     }
+// };

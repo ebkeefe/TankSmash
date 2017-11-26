@@ -26,7 +26,7 @@ function HollowCylinder(n,theta) {
     this.vTexCoords = [this.numVertices];
 
     
-    console.log("hc drawn");
+    //console.log("hc drawn");
 
     // These are the actual vertices and colors to be placed in the vertex buffers.
 

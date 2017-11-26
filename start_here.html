@@ -67,7 +67,7 @@
                 vec4 c2 = vec4(0.0, 1.0, 0.0, 1.0); //green
                 vec4 c3 = vec4(0.8, 0.3, 0.3, 1.0);//brown
                 vec4 c4 = vec4(1.0, 1.0, 1.0, 1.0);//white
-                return c1;
+                return c4;
             }
 
             void main()
@@ -76,7 +76,7 @@
                 vec4 myColor;
                 if (uMode == 0){
                     myColor = color;
-                }else if(uMode == 1){
+                }else if(uMode == 1 || uMode == 4){ //4 is ovverride mode for light
                     myColor = uColor;
                 }else if(uMode == 2){
                     myColor = texture2D( uTexture, texCoord );
@@ -105,7 +105,9 @@
                 }
 
                 gl_FragColor  = ambient + diffuse + specular;
-
+                if (uMode == 4){
+                    gl_FragColor = myColor; //override because we want the light to be colored yellow
+                }
                 gl_FragColor.a = 1.0;
             }
         </script>
@@ -144,6 +146,8 @@
     <body>
     
         <h2> Tank Smash Game</h2>
+        <h5 id = "Tank1Health"> Tank 1 Health: 1000</h5>
+        <h5 id = "Tank2Health"> Tank 2 Health: 1000</h5>
         <table>
             <tr>
                 <td>
@@ -158,8 +162,12 @@
                         <p> Keyboard Controls:</p>
                         <ul>
                             <li>[r] ........ reset parameters</li> 
+                            <li> Controls for Tank 1</li>
                             <li>[q/a] ........ move forward/backward</li> 
                             <li>[w/e] ........ turn left/right</li> 
+                            <li>Controls for Tank 2 </li>
+                            <li>[k/l] ........ move forward/backward</li>
+                            <li>[o/p] ......... turn left/right</li>
                            
                         </ul>
                     </div>
