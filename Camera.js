@@ -14,8 +14,8 @@ function Camera() {
     this.theta = 0;
     
     this.fov = 60;           // Field-of-view in Y direction angle (in degrees)
-    this.zNear = 0.1;        // camera's far plane
-    this.zFar = 500;         // camera's near plane
+    this.zNear = 0.2;        // camera's far plane
+    this.zFar = 800;         // camera's near plane
 
 // Camera *initial* location and orientation parameters
     //this.eye_start = vec4([0, 4, 25, 1]); // initial camera location (needed for reseting) 
@@ -130,7 +130,7 @@ Camera.prototype.moveForward = function(){
     }
 	this.eye = add(this.eye,scale(alpha*this.fScale, this.viewRotation[2]));
     this.theta+=2;
-    Shapes.hollowCylendar = new HollowCylinder(50,this.theta);
+    Shapes.hollowCylinder = new HollowCylinder(50,this.theta);
     Shapes.initBuffers(Shapes.hollowCylinder);
     Shapes.cubeMove = new CubeMove(this.theta);
     Shapes.initBuffers(Shapes.cubeMove);
@@ -142,7 +142,7 @@ Camera.prototype.moveBackward = function(){
     }
     this.eye = add(this.eye,scale(-alpha*this.bScale,this.viewRotation[2]));
     this.theta-=2;
-    Shapes.hollowCylendar = new HollowCylinder(50,this.theta);
+    Shapes.hollowCylinder = new HollowCylinder(50,this.theta);
     Shapes.initBuffers(Shapes.hollowCylinder);
     Shapes.cubeMove = new CubeMove(this.theta);
     Shapes.initBuffers(Shapes.cubeMove);
